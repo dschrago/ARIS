@@ -530,8 +530,8 @@ class MPU6050(object):
         def __init__(self, mpu):
             self.mpu = mpu
             self.i2c = self.mpu.i2c
-            self._scale_modifier = self.ACCEL_SCALE_MODIFIER_2G
-            self._range = self.ACCEL_RANGE_2G
+            self._scale_modifier = self.ACCEL_SCALE_MODIFIER_8G
+            self._range = self.ACCEL_RANGE_8G
 
         class Axis:
             def __init__(self, accel, axis, name):
@@ -3452,11 +3452,11 @@ class MPU6050(object):
                           }
                  }, indent=4, sort_keys=True))
 
-            x, y, z, w = quaternion
-            q = Quaternion(w,x,y,z)
-            v = Vector(0,0,1)
-            u = v.get_rotated(q)
-            print("rotated world vector: " + str(u))
+            #x, y, z, w = quaternion
+            #q = Quaternion(w,x,y,z)
+            #v = Vector(0,0,1)
+            #u = v.get_rotated(q)
+            #print("rotated world vector: " + str(u))
 
             time.sleep(0.005) # need to run faster than the FIFO
 
@@ -3529,7 +3529,7 @@ class MPU6050(object):
         # self.DMP.sample_rate = 0
 
         self.gyro.set_range(self.gyro.GYRO_RANGE_2000DEG)
-        self.accelerometer.set_range(self.accelerometer.ACCEL_RANGE_2G)
+        self.accelerometer.set_range(self.accelerometer.ACCEL_RANGE_8G)
         self.DLPF.set(self.DLPF.DLPF_CFG_5)
         self.DMP.set_state(False)
         self.set_sample_rate(50)  # 50
@@ -3565,10 +3565,29 @@ class MPU6050(object):
 
 if __name__ == "__main__":
     mpu = MPU6050(bus=2, address=0x68)
-    # mpu.calibrate()
-    # mpu.self_test()
 
-    mpu.DLPF.set(mpu.DLPF.DLPF_CFG_5)
-    print("Gyro Offsets: " + str(mpu.gyro.offsets))
-    print("Accelerometer Offsets: " + str(mpu.accelerometer.offsets))
-    mpu.run_loop()
+    # think that you need to install the required packages and follow the following website for wiring and installation
+    # https://www.electronicwings.com/raspberry-pi/raspberry-pi-i2c
+    
+    # Test0 
+    mpu.calibrate()
+    mpu.self_test()
+
+    # Test 1
+    #mpu.init() #adapt to 8G accel range and possibly gyro range and sampling rate
+    #mpu.AccelerometerClass.get_range()
+    #mpu.GyroClass.get_range()
+
+    # Test 2
+    #mpu.DLPF.set(mpu.DLPF.DLPF_CFG_5)
+    #print("Gyro Offsets: " + str(mpu.gyro.offsets))
+    #print("Accelerometer Offsets: " + str(mpu.accelerometer.offsets))
+    #mpu.run_loop()
+
+    # Test 3
+    #mpu.run_DMP()
+
+    # Test 4
+    # bring time also in consideration with import datetime now = datetime.datetime.now() or possibly with timestamp in run_DMP() and might need to adapt while True to get for specific amount of time
+    # consider also code for SPST relay in here
+    
