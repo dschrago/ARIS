@@ -20,7 +20,7 @@ wait = 10
 while True:
 
     #If acceleration exceeds threshold, start counting
-    if accel >= threshold*9.81:
+    if accel[2] >= threshold*9.81:
         count = count + 1
 
         #If count is above a certain duration, switch on SPST relay via the GPIO.output, then wait for a duration defined by wait before switching off the relay
@@ -34,7 +34,7 @@ while True:
     #If the acceleration was not long enough, set count to 0 and GPIO.output to low     
     else:
         count = 0 
-        GPIO.output(relay_ch, GPIO.LOW)
+        #GPIO.output(relay_ch, GPIO.LOW)
 
 
 #GPIO.cleanup()
