@@ -1,13 +1,40 @@
 import time
 import RPi.GPIO as GPIO
 
+#Define pin that will be used as output for the SPST relay switch
 relay_ch = 26
 
 GPIO.setwarnings(False)
+#Tells us which pin numbering we are using (this here corresponds to the number in the green boxes after GPIO)
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(relay_ch, GPIO.OUT)
-GPIO.output(relay_ch, GPIO.LOW)
-time.sleep(1)
-GPIO.output(relay_ch, GPIO.HIGH)
-GPIO.cleanup()
+
+#Define parameters such as the acceleration threshold and the duration threshold
+threshold = 4
+duration = 10
+count = 0
+wait = 10
+
+#This while loop will be inside the mpu6050.py file in the function run_DMP(self)
+while True:
+
+    #If acceleration exceeds threshold, start counting
+    if accel[2] >= threshold*9.81:
+        count = count + 1
+
+        #If count is above a certain duration, switch on SPST relay via the GPIO.output, then wait for a duration defined by wait before switching off the relay
+        if count > duration:
+            GPIO.output(relay_ch, GPIO.HIGH)
+            time.sleep(wait)
+            GPIO.output(relay_ch, GPIO.LOW)
+            break
+
+
+    #If the acceleration was not long enough, set count to 0 and GPIO.output to low     
+    else:
+        count = 0 
+        #GPIO.output(relay_ch, GPIO.LOW)
+
+
+#GPIO.cleanup()
