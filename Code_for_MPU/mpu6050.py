@@ -3570,8 +3570,8 @@ if __name__ == "__main__":
     # https://www.electronicwings.com/raspberry-pi/raspberry-pi-i2c
     
     # Test0 
-    mpu.calibrate()
-    mpu.self_test()
+    #mpu.calibrate()
+    #mpu.self_test()
 
     # Test 1
     #mpu.init() #adapt to 8G accel range and possibly gyro range and sampling rate
