@@ -23,9 +23,9 @@ class MPU:
         self.pitch = 0
         self.yaw = 0
 
-        self.dtTimer = 0
-        self.tau = tau
-
+        self.dtTimer = 0     # self.tau term is a smoothing factor, which determines the contribution of the gyroscope and accelerometer readings to the final angle calculation.
+        self.tau = tau       # A higher self.tau value will place more weight on the accelerometer readings, while a lower self.tau value will place more weight on the gyroscope readings.
+   
         self.gyroScaleFactor, self.gyroHex = self.gyroSensitivity(gyro)
         self.accScaleFactor, self.accHex = self.accelerometerSensitivity(acc)
 
@@ -152,7 +152,6 @@ class MPU:
         self.roll = (self.tau)*(self.roll - self.gy*dt) + (1-self.tau)*(accRoll)
         self.pitch = (self.tau)*(self.pitch + self.gx*dt) + (1-self.tau)*(accPitch)
 
-
         # Get current timestamp
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
@@ -165,8 +164,8 @@ class MPU:
 
 def main():
     # Set up class
-    gyro = 250      # 250, 500, 1000, 2000 [deg/s]  here we want 2000 deg/s
-    acc = 2         # 2, 4, 7, 16 [g]   here we want +/- 16 g
+    gyro = 250      # 250, 500, 1000, 2000 [deg/s]    ; for rocket we want 2000 deg/s  
+    acc = 2         # 2, 4, 7, 16 [g]                 ; for rocket we want +/- 16 g    
     tau = 0.98
     mpu = MPU(gyro, acc, tau)
 
@@ -184,22 +183,20 @@ def main():
         mpu.compFilter()
         # Append data to the list
         #all_data = mpu.compFilter()
-        #np.vstack([data, [all_data['t'],all_data['x'], all_data['y'], all_data['z'], all_data['roll'], all_data['pitch'], all_data['yaw']]])
         #print("Time:{:.4f}\tAccel_x:{:.4f}\tAccel_y:{:.4f}\tAccel_z:{:.4f}\tRoll:{:.4f}\tPitch:{:.4f}\tYaw:{:.4f} ".format(all_data['t'],all_data['x'], all_data['y'], all_data['z'], all_data['roll'], all_data['pitch'], all_data['yaw'] ))
+        #data = np.vstack([data, [all_data['t'],all_data['x'], all_data['y'], all_data['z'], all_data['roll'], all_data['pitch'], all_data['yaw']]])
         
-
-
     # End
-    print("Closing")
+    print("Closing measurement procedure")
 
-     # Convert list to numpy array/matrix
+    # Convert list to numpy array/matrix
     #data_matrix = np.array(data)
     
     # Save matrix to CSV file
-    #np.savetxt("data.csv", data_matrix, delimiter=",", header="Time,Accel_x,Accel_y,Accel_z,Roll,Pitch,Yaw")
+    #np.savetxt("data.csv", data_matrix, delimiter=",", header="Time,Accel_x,Accel_y,Accel_z,Roll,Pitch,Yaw")  # acceleration in g units and r,p,y in degrees
 
     # Print confirmation message
-    #print("Data saved to data.csv")
+    #print("Data saved to csv file... Check!")
 
 # Main loop
 if __name__ == '__main__':
