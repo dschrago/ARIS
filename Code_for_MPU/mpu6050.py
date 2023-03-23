@@ -3564,7 +3564,7 @@ class MPU6050(object):
 
 
 if __name__ == "__main__":
-    mpu = MPU6050(bus=2, address=0x68)
+    mpu = MPU6050(bus=1, address=0x68)
 
     # think that you need to install the required packages and follow the following website for wiring and installation
     # https://www.electronicwings.com/raspberry-pi/raspberry-pi-i2c
@@ -3585,7 +3585,9 @@ if __name__ == "__main__":
     #mpu.run_loop()
 
     # Test 3
+    mpu.enable_DMP()
     #mpu.run_DMP()
+    
 
     # Test 4
     # bring time also in consideration with import datetime now = datetime.datetime.now() or possibly with timestamp in run_DMP() and might need to adapt while True to get for specific amount of time
