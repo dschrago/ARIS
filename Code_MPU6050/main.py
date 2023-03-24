@@ -156,7 +156,13 @@ class MPU:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
 
         # Print data
-        print("Time:{:.4f}\tAccel_x:{:.4f}\tAccel_y:{:.4f}\tAccel_z:{:.4f}\tRoll:{:.4f}\tPitch:{:.4f}\tYaw:{:.4f} ".format(timestamp,round(str(self.ax),3), round(str(self.ay),3), round(str(self.az),3), round(str(self.roll,3)), round(str(self.pitch,3)), round(str(self.yaw,3)) ))
+        print(" Time: " + str(timestamp) \
+            + " Roll: " + str(round(self.roll,3)) \
+            + " Pitch: " + str(round(self.pitch,3)) \
+            + " Yaw: " + str(round(self.yaw,3)) \
+            + " Accel_x: " + str(round(self.ax,3)) \
+            + " Accel_y: " + str(round(self.ay,3)) \
+            + " Accel_z: " + str(round(self.az,3)) )
         
         # Return values
         #return {'t':timestamp, 'x': round(self.ax,3), 'y': round(self.ay,3), 'z': round(self.az,3), 'roll' : round(self.roll,3), 'pitch' : round(self.pitch,3),'yaw' : round(self.yaw,3) } 
@@ -183,7 +189,7 @@ def main():
         mpu.compFilter()
         # Append data to the list
         #all_data = mpu.compFilter()
-        #print("Time:{:.4f}\tAccel_x:{:.4f}\tAccel_y:{:.4f}\tAccel_z:{:.4f}\tRoll:{:.4f}\tPitch:{:.4f}\tYaw:{:.4f} ".format(all_data['t'],all_data['x'], all_data['y'], all_data['z'], all_data['roll'], all_data['pitch'], all_data['yaw'] ))
+        #print(" Time: " + str(timestamp) \ + " Roll: " + str(round(self.roll,3)) \+ " Pitch: " + str(round(self.pitch,3)) \ + " Yaw: " + str(round(self.yaw,3)) \ + " Accel_x: " + str(round(self.ax,3)) \ + " Accel_y: " + str(round(self.ay,3)) \ + " Accel_z: " + str(round(self.az,3)) )
         #data = np.vstack([data, [all_data['t'],all_data['x'], all_data['y'], all_data['z'], all_data['roll'], all_data['pitch'], all_data['yaw']]])
         
     # End
