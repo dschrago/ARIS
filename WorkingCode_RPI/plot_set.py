@@ -134,7 +134,7 @@ def event_to_vec(M):
     return delta
 
     
-A = np.array([[1,0,0,0],[0,0,0,1],[1,0,0,0],[1,0,0,0]])
+A = np.array([[1,0,0,0],[0,1,0,0],[1,0,0,0],[0,1,0,0]])
 
 #M = vec_to_matrix(np.array(Data.iloc[16]))
 
@@ -318,8 +318,6 @@ t = np.linspace(-4, 4, 10)
 line_points = np.outer(t, ve) + p0
 
 # Create figure and axes objects
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
 
 fig = plt.figure()
 plt.subplot(111, projection='3d')
