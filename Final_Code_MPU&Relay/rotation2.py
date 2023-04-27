@@ -41,7 +41,7 @@ def main():
     ######################### MPU DATA ############################
 
     # CSV file with MPU data to be read out
-    filename = "03-29_15:03:03.033082.csv"  # filename has to be adjusted
+    filename = "MPU.csv"  # filename has to be adjusted
 
     # Open MPU CSV file
     with open(filename, mode="r") as csv_file:
@@ -55,6 +55,8 @@ def main():
     time_data = [sub_list[0] for sub_list in data]
     time_mpudata = [(float(time_str) - float(time_data[0])) for time_str in time_data]  # Calculate the relative time differences
     #time_mpudata[0] = 0  # Set the first entry to 0
+
+    print(time_mpudata)
     
     # Yaw list
     yaw_data = [sub_list[6] for sub_list in data]
@@ -86,7 +88,7 @@ def main():
             data.append(row)
     
     # Time list with relative time differences
-    time_data = [sub_list[1] for sub_list in data]
+    time_data = [sub_list[0] for sub_list in data]
     time_wddata = [(float(time_str) - float(time_data[0])) for time_str in time_data]  # Calculate the relative time differences
     #time_wddata[0] = 0  # Set the first entry to 0
 
@@ -111,43 +113,6 @@ def main():
         for R in rotation_matrices:
             csv_writer.writerow([R])
 
-
-    
-    
-    # CSV file with vector data to be read out
-    #filename = "vector.csv"  # filename has to be adjusted
-
-    # Open CSV file
-    #with open(filename, mode="r") as csv_file:
-        #csv_reader = csv.reader(csv_file, delimiter=",")
-        #next(csv_reader) #skips first row
-        #vector = []
-        #for row in csv_reader:
-            #vector.append(row)
-    
-    # List of Vectors obtained from WD data showing trajectory of muon
-    # print(vector)  
-    
-    # To be checked: vector needs to be in the from that vector[0] = np.array([x,y,z])
-            
-    
-    # Initialize an empty list to store the rotation matrices
-    Rotation_matrices = []
-    
-    # Loop through the elements of the yaw, pitch and roll data lists
-    for i in range(len(yaw_data)):
-        rot_mat = get_rotation_matrix(yaw_data[i], pitch_data[i], roll_data[i])
-        Rotation_matrices.append(rot_mat)
-    
-    # Initialize an empty list to store the rotation matrices
-    Rot_Vec = []
-    
-    # Get rotated vectors in matrix format
-    for i in range(len(Rotation_matrices)):
-        vec_rot = get_rotated_vector(Rotation_matrices[i], vector[i])
-        Rot_Vec.append(vec_rot)
-    
-    
 
 # Main loop
 if __name__ == '__main__':
