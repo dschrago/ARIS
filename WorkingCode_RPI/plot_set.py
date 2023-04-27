@@ -134,7 +134,7 @@ def event_to_vec(M):
     return delta
 
     
-A = np.array([[1,0,0,0],[0,1,0,0],[1,0,0,0],[0,1,0,0]])
+A = np.array([[1,0,0,0],[0,1,0,0],[0,1,0,0],[0,0,0,1]])
 
 #M = vec_to_matrix(np.array(Data.iloc[16]))
 
