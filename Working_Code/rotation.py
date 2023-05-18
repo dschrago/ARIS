@@ -86,17 +86,17 @@ def main():
     #print(time_mpudata)
     
     # Yaw list
-    yaw_data = [sub_list[6] for sub_list in data]
+    yaw_data = [sub_list[3] for sub_list in data]
     yaw_data = [np.deg2rad(float(i)) for i in yaw_data] #convert to radians
     #print(yaw_data)
     
     # Pitch list
-    pitch_data = [sub_list[5] for sub_list in data]
+    pitch_data = [sub_list[2] for sub_list in data]
     pitch_data = [np.deg2rad(float(i)) for i in pitch_data] #convert to radians
     #print(pitch_data)
     
     # Roll list
-    roll_data = [sub_list[4] for sub_list in data]
+    roll_data = [sub_list[1] for sub_list in data]
     roll_data = [np.deg2rad(float(i)) for i in roll_data] #convert to radians
     #print(roll_data)
 
